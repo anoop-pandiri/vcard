@@ -1,0 +1,55 @@
+{% extends "web/base.html" %}
+{% load static %}"
+{% static "" as baseUrl %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section" style="background-image: url('{{baseUrl}}/{{object.bgtemplate}}'); border: 1px solid black;">
+<div>
+
+    <!-- Author information -->
+    <div class="media">
+        <img class="d-flex mr-3 rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
+        <div class="media-body">
+            <h4 class="mt-0"><a href="{% url 'user_posts' object.author.username %}">{{ object.author }}</a></h4>
+            <h6 class="mt-0">{{ object.author.email }}</h6>
+        </div>
+    </div>
+    <hr>
+
+    <!-- Card information -->
+    <div>
+        <h1 class="mt-4">{{object.title}}</h1>
+        <p>
+            Created on {{ object.date_posted|date:"F d, Y" }}
+            {% if object.author == user %}
+            <a class="btn btn-info btn-sm mt-1 mb-1 float-right" href="{% url 'post_update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1 float-right mr-2 "
+                href="{% url 'post_delete' object.id %}">Delete</a>
+            {% endif %}
+        </p>
+    </div>
+    <hr>
+    <!-- Business type -->
+    <h4>Business type</h4>
+    <p class="lead">{{object.btype|safe|linebreaks }}</p>
+    <hr>
+
+    <!-- Content -->
+    <h4>About Us</h4>
+    <p class="lead">{{ object.content|safe|linebreaks }}</p>
+    <hr>
+    <h3>Contact Us</h3>
+    
+    <!-- Phone -->
+    <p class="lead"><a href="https://api.whatsapp.com/send?phone={{ object.phone_number|safe}}"><img src="{% static 'icons/whatsapp.png' %}" width="60px"></a>
+    <!-- Email -->
+    <a href="mailto:{{object.email|safe}}"><img src="{% static 'icons/mail.png' %}" width="45px"></a></p>
+    <!-- Address -->
+    <p class="lead">{{object.address|safe|linebreaks }}</p>
+    <!-- Preview Image -->
+    <!-- <img class="img-fluid rounded" src="" alt="mn">
+    <hr> -->
+</div>
+</div>
+<br>
+{% endblock content %}

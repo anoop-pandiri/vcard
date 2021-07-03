@@ -1,0 +1,25 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+ 
+
+<div class="jumbotron">
+    <h1 class="display-4">Digital Visiting Card is Here!</h1>
+    <p class="lead">Now, Have your own mini website for Free <br>Show Your Business to Clients in a Much Better Way...</p>
+    <hr class="my-4">
+    <p>Create Your Mini-Website in Just 2 Mins!!.</p>
+    <p class="lead">
+    {% if user.is_authenticated %}
+      <a class="btn btn-primary btn-lg" href="{% url 'post_create' %}" role="button">Create My Card</a>
+    {% else %}
+    <a class="btn btn-primary btn-lg" href="{% url 'post_create' %}" role="button">Create My Card</a>   
+    {% endif %}
+    </p>
+  </div>
+<!-- <img src="{% static "templatefiles/3.jpg" %}"> -->
+  <br><br><br><br><br><br>
+  
+{% endblock content %}
